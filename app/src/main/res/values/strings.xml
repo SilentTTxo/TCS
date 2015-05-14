@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">贪吃蛇</string>
+    <string name="action_settings">说明</string>
+    <string name="title_activity_shuoming">说明</string>
+
+    <string name="hello_world">Hello world!</string>
+</resources>

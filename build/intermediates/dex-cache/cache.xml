@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/tt/AndroidStudioProjects/tcs/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/home/tt/AndroidStudioProjects/tcs/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-d99f529e3b096ee1dbf69806c27dde037bc23e45.jar" />
+    </item>
+    <item
+        jar="/home/tt/桌面/android-studio(old)/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/home/tt/AndroidStudioProjects/tcs/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-68b054b0a47a81b958477e33dcb5163a58c9fd5d.jar" />
+    </item>
+    <item
+        jar="/home/tt/AndroidStudioProjects/tcs/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/home/tt/AndroidStudioProjects/tcs/app/build/intermediates/pre-dexed/debug/classes-90667214840b3d3eb1827d594d535eb0cc5521e2.jar" />
+    </item>
+    <item
+        jar="/home/tt/AndroidStudioProjects/tcs/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/home/tt/AndroidStudioProjects/tcs/app/build/intermediates/pre-dexed/debug/classes-78e7d52bbf9485c259591ba96e6d5d623fae8edb.jar" />
+    </item>
+
+</items>
