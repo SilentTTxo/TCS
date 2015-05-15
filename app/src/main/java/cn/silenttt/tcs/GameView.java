@@ -4,10 +4,14 @@ package cn.silenttt.tcs;
  * Created by tt on 15-5-11.
  */
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.GestureDetector;
@@ -25,6 +29,7 @@ public class GameView extends View implements Runnable {
     private Random rd= new Random();
     private int Hight,Whight,bc,x=0,y=0,fx=1,WL,HL,ex,ey,Wei,Hei;
     private int line,df=100;
+    private Bitmap head,headT;
     private Canvas cs;
     private GestureDetector gestureDetector;
     private boolean alive=true;
@@ -34,7 +39,7 @@ public class GameView extends View implements Runnable {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             float x = e2.getX() - e1.getX();
             float y = e2.getY() - e1.getY();
-            System.out.println(x+" "+y);
+            //System.out.println(x+" "+y);
             if (Math.abs(x) > Math.abs(y) ) {
                 if(x>0) {
                     if (fx != 3) {
@@ -58,6 +63,7 @@ public class GameView extends View implements Runnable {
                     }
                 }
             }
+            headT = Rot((fx-1)*90,head);
             return true;
         }
         public boolean onDoubleTap(MotionEvent e){
@@ -80,7 +86,7 @@ public class GameView extends View implements Runnable {
                 return true;
             }
         }
-    }
+    }                             //TouchEvent
     class body {
         public int x,y,type;
     }
@@ -108,6 +114,9 @@ public class GameView extends View implements Runnable {
         CreadEat();
         bd = new body[1000];
         bd[0] = new body();
+        head = BitmapFactory.decodeResource(this.getContext().getResources(),R.drawable.head);
+        head = Bitmap.createScaledBitmap(head,line,line,true);
+        headT=head;
 
         gestureDetector = new GestureDetector(new mL());
         /* 构建对象 */
@@ -116,8 +125,22 @@ public class GameView extends View implements Runnable {
         new Thread(this).start();
         new Thread(SK).start();
     }
-    public void UseSkill(){
-
+    public void DrawHead(int tx,int ty){
+        int sx = Hei/48,sy = Hei/48;
+        tx+=sx;ty+=sy;
+        cs.drawBitmap(headT,null,new RectF(tx,ty,tx+line,ty+line),mPaint);
+    }
+    public Bitmap Rot(float angle,Bitmap img){
+        Matrix mx = new Matrix();
+        if(angle==180){
+            mx.postScale(-1, 1);
+        }
+        else
+            mx.postRotate(angle);
+        int wight = img.getWidth();
+        int height = img.getHeight();
+        System.out.println(wight+" "+height);
+        return Bitmap.createBitmap(img,0,0,wight,height,mx,true);
     }
     public void Draw(int x,int y,int color){
         int sx = Hei/48,sy = Hei/48;
@@ -126,7 +149,8 @@ public class GameView extends View implements Runnable {
         cs.drawRect(sx+x,sy+y,sx+x+line,sy+y+line,mPaint);
     }
     public void GameOver(){
-        mPaint.setTextSize(100);
+        mPaint.setTextSize(line*2);
+        mPaint.setColor(Color.RED);
         alive=false;
         cs.drawText("Score:"+score,Wei/4,Hei/2,mPaint);
     }
@@ -166,6 +190,14 @@ public class GameView extends View implements Runnable {
         if(skill==2) return ans*2;
         return ans;
     }
+    public String SKILL(int x){
+        switch(x){
+            case 0: return "红色有角三倍速！";
+            case 1: return "分数乘二！";
+            case 2: return "减速一半！";
+        }
+        return "NoSkill";
+    }
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
@@ -186,7 +218,7 @@ public class GameView extends View implements Runnable {
         mPaint.setTextSize(Hei/48);
         mPaint.setColor(Color.YELLOW);
         canvas.drawRect(new Rect(), mPaint);
-        cs.drawText("Score:"+score+" V="+V(score,SK.skillNum),Wei/4,80,mPaint);
+        cs.drawText("Score:"+score+"  V="+1000.0/V(score,SK.skillNum)+"  skill="+SKILL(SK.skillNum),line,line,mPaint);
 
         /* 解除画布的锁定 */
         canvas.restore();
@@ -211,7 +243,8 @@ public class GameView extends View implements Runnable {
                     case 3:x-=bc;break;
                 }
                 bd[i].x=x;bd[i].y=y;
-                Draw(x,y,Color.YELLOW);
+                DrawHead(x,y);
+                //Draw(x,y,Color.YELLOW);
             }
             else{
                 if(bd[i].x!=bd[i-1].x||bd[i].y!=bd[i-1].y) {
